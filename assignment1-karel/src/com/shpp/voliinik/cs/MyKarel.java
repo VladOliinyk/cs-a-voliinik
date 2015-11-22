@@ -12,7 +12,7 @@ public class MyKarel extends KarelTheRobot {
         doVictoryDance();
     }
 
-    public void doVictoryDance() throws Exception{
+    public void doVictoryDance() throws Exception {
         turnLeft();
         turnLeft();
         turnLeft();
