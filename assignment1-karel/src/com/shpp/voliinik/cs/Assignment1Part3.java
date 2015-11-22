@@ -65,19 +65,13 @@ public class Assignment1Part3 extends KarelTheRobot {
 
     /*
     * recursion
-    *           pick beeper from another end of row on which Karel stays until put all beepers
+    *           pick beeper from another end of row (on which Karel stay) until put all beepers
     * @return   Karel stay in midpoint of row
     *           no beepers in this row
     * */
     private void pickBeeperInOtherSide() throws Exception {
         turnAround();
-        move();
-        while(beepersPresent()){
-            move();
-        }
-        turnAround();
-        move();
-        turnAround();
+        moveToOtherSide();
         if(beepersPresent()) {
             pickBeeper();
             pickBeeperInOtherSide();
@@ -85,7 +79,34 @@ public class Assignment1Part3 extends KarelTheRobot {
     }
 
     /*
-    * double turn left
+    * move to the opposite end of the row with a beeper.
+    * @return   Karel stay on beeper
+    *           row with beepers is behind Karel
+    *           (Karel look to west)
+    * */
+    private void moveToOtherSide() throws Exception {
+        move();
+        while(beepersPresent()){
+            move();
+        }
+        takeAStepBack();
+    }
+
+    /*
+    * take a step back
+    * @return   Karel is looking to the same
+    *           Karel made one step back
+    *           row with beepers is behind Karel (same)
+    *
+    * */
+    private void takeAStepBack() throws Exception {
+        turnAround();
+        move();
+        turnAround();
+    }
+
+    /*
+    * turn around
     * @result   Karel look backward from his start position
     * */
     private void turnAround() throws Exception {

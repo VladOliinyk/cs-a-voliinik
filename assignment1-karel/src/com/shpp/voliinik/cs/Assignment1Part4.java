@@ -5,7 +5,7 @@ import com.shpp.karel.KarelTheRobot;
 public class Assignment1Part4 extends KarelTheRobot{
 
     public void run() throws Exception {
-        chessIsLife(); // (c) Bobby	Fischer, an American chess Grandmaster
+        chessIsLife(); // (c) Bobby	Fischer's quote, an American chess Grandmaster
     }                  // https://en.wikipedia.org/wiki/Bobby_Fischer
 
     /*

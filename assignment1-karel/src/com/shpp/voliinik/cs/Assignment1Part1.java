@@ -87,7 +87,7 @@ public class Assignment1Part1 extends KarelTheRobot {
     }
 
     /*
-    * Turn right (your Captain obvious)
+    * Turn right
     */
     private void turnRight() throws Exception {
         turnLeft();
@@ -96,7 +96,7 @@ public class Assignment1Part1 extends KarelTheRobot {
     }
 
     /*
-    * Turn around (yep, it's me, Captain obvious again)
+    * Turn around
     */
     private void turnAround() throws Exception {
         turnLeft();

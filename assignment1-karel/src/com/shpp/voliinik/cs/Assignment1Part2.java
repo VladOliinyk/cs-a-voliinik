@@ -75,7 +75,7 @@ public class Assignment1Part2 extends KarelTheRobot {
     }
 
     /*
-    * turn around (yep, it's cap again)
+    * turn around
     * */
     private void turnAround() throws Exception {
         turnLeft();
