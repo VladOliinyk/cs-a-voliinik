@@ -19,22 +19,9 @@ public class Assignment1Part3 extends KarelTheRobot {
     *
     * */
     private void thatIsOneSmallStepForKarel() throws Exception {
-        moveToAssignmentRow();
         fillRow();
-        clearRow();
+        findMidpoint();
         markMidpoint();
-    }
-
-    /*
-    * just step to the second row where karel tryes to find midpoint
-    *
-    * @result Karel stand on second row
-    *         look to east (in direction of the row that Karel need to fill)
-    * */
-    private void moveToAssignmentRow() throws Exception {
-        turnLeft();
-        move();
-        turnRight();
     }
 
     /*
@@ -60,7 +47,7 @@ public class Assignment1Part3 extends KarelTheRobot {
     * @result:  row is clear
     *           beeper stand in center of row
     * */
-    private void clearRow() throws Exception {
+    private void findMidpoint() throws Exception {
         pickBeeper();
         pickBeeperInOtherSide();
     }
@@ -73,10 +60,6 @@ public class Assignment1Part3 extends KarelTheRobot {
     *                                   second (from start point) cell if count of rows is even [][][][x][][]
     * */
     private void markMidpoint() throws Exception {
-        while(notFacingSouth()){
-            turnLeft();
-        }
-        move();
         putBeeper();
     }
 
@@ -99,17 +82,6 @@ public class Assignment1Part3 extends KarelTheRobot {
             pickBeeper();
             pickBeeperInOtherSide();
         }
-    }
-
-
-    /*
-    * triple turn left
-    * @result   Karel look right from his start position
-    * */
-    private void turnRight() throws Exception {
-        turnLeft();
-        turnLeft();
-        turnLeft();
     }
 
     /*
