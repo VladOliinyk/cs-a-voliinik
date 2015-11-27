@@ -19,9 +19,9 @@ public class Assignment1Part2 extends KarelTheRobot {
     private void fillAllPillars() throws Exception {
         while (frontIsClear()) {
             fillThePillar();
-            if (frontIsClear()){
+           // if (frontIsClear()){
                 moveToNextPillar();
-            }
+           // }
         }
         fillThePillar();
     }
@@ -59,8 +59,7 @@ public class Assignment1Part2 extends KarelTheRobot {
     * put beeper in empty cell
     * */
     private void putBeeperIfNeeded() throws Exception {
-        if (beepersPresent()) {}
-        else {
+        if (noBeepersPresent()) {
             putBeeper();
         }
     }

@@ -19,8 +19,10 @@ public class Assignment1Part3 extends KarelTheRobot {
     *
     * */
     private void thatIsOneSmallStepForKarel() throws Exception {
-        fillRow();
-        findMidpoint();
+        if (frontIsClear()){
+            fillRow();
+            findMidpoint();
+        }
         markMidpoint();
     }
 

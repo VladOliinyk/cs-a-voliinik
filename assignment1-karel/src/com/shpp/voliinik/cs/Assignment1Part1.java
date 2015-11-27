@@ -32,7 +32,7 @@ public class Assignment1Part1 extends KarelTheRobot {
     private void comeToDoor() throws Exception {
         moveToWall();
         turnRight();
-        move();
+        moveWhileLeftIsWall();
         turnLeft();
     }
 
@@ -50,9 +50,8 @@ public class Assignment1Part1 extends KarelTheRobot {
     * Check for newspaper & pick it if it is (lol :D)
     */
     private void pickNewspaper() throws Exception {
-        if (beepersPresent()) {
+        while (beepersPresent()){
             pickBeeper();
-            pickNewspaper(); // there we have recursive call because maybe the postman brought us a few newspapers
         }
     }
 
@@ -101,5 +100,14 @@ public class Assignment1Part1 extends KarelTheRobot {
     private void turnAround() throws Exception {
         turnLeft();
         turnLeft();
+    }
+
+    /*
+    * move forward while left is wall
+    * */
+    private void moveWhileLeftIsWall() throws Exception {
+        while(leftIsBlocked()){
+            move();
+        }
     }
 }
