@@ -12,7 +12,7 @@ public class Assignment3Part1 extends TextProgram {
 
     public static int DAYS = 7;
     // duration of training (in minutes)
-    public static int CARDIOVASCULAR_TRAINING_TIME = 30;
+    public static final int CARDIOVASCULAR_TRAINING_TIME = 30;
     public static int LOW_BLOOD_PRESSURE_TIME = 40;
     /**
      * Main method.

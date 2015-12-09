@@ -33,6 +33,9 @@ public class Assignment3Part3 extends TextProgram {
         if (exponent == 0) {
             return 1; // Based on the conditions ( x^0 = 1 )
         }
+        if (base == 0) {
+            return 0;
+        }
         if (exponent > 0) {
             result = calculations(base, exponent);
         } else {
