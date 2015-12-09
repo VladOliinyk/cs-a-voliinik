@@ -5,11 +5,6 @@ import com.shpp.cs.a.console.TextProgram;
 public class Assignment3Part3 extends TextProgram {
 
     /**
-     * Global variable.
-     */
-    public double result = 0;
-
-    /**
      * Main method.
      * Asks input data.
      * Calling exponentiation method.
@@ -17,9 +12,10 @@ public class Assignment3Part3 extends TextProgram {
     public void run() {
         double base = readDouble("Enter the BASE number: ");
         int exponent = readInt("Enter the EXPONENT number: ");
-        raiseToPower(base, exponent);
-        println(base + "^" + exponent + " = " + result);
+        double raisedNumber = raiseToPower(base, exponent);
+        println(base + "^" + exponent + " = " + raisedNumber);
     }
+
 
     /**
      * Exponentiation method.
@@ -29,20 +25,25 @@ public class Assignment3Part3 extends TextProgram {
      *
      * @param base     Base of exponentiation.
      * @param exponent Exponent of exponentiation.
+     * @return Raised number.
      */
-    private void raiseToPower(double base, int exponent) {
-        result = base;
+    private double raiseToPower(double base, int exponent) {
+        double result;
+
         if (exponent == 0) {
-            result = 1; // Based on the conditions ( x^0 = 1 )
+            return 1; // Based on the conditions ( x^0 = 1 )
         }
         if (exponent > 0) {
-            calculations(base, exponent);
+            result = calculations(base, exponent);
         } else {
             exponent = -exponent;
-            calculations(base, exponent);
-            result = 1 / result; // If exponent < 0 result value should be inverted.
+            result = calculations(base, exponent);
+            return (1 / result); // If exponent < 0 result value should be inverted.
         }
+
+        return result;
     }
+
 
     /**
      * Calculation method.
@@ -51,10 +52,13 @@ public class Assignment3Part3 extends TextProgram {
      *
      * @param base     Base of exponentiation.
      * @param exponent Exponent of exponentiation.
+     * @return Result of calculations
      */
-    private void calculations(double base, int exponent) {
+    private double calculations(double base, int exponent) {
+        double calculationsResult = base;
         for (int i = 0; i < exponent - 1; i++) {
-            result = result * base;
+            calculationsResult = calculationsResult * base;
         }
+        return calculationsResult;
     }
 }
