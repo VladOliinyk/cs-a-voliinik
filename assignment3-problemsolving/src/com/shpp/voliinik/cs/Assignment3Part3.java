@@ -12,8 +12,13 @@ public class Assignment3Part3 extends TextProgram {
     public void run() {
         double base = readDouble("Enter the BASE number: ");
         int exponent = readInt("Enter the EXPONENT number: ");
-        double raisedNumber = raiseToPower(base, exponent);
-        println(base + "^" + exponent + " = " + raisedNumber);
+        if ((base != 0) && (exponent > 0)) {
+            double raisedNumber = raiseToPower(base, exponent);
+            println(base + "^" + exponent + " = " + raisedNumber);
+        } else {
+            println("Input incorrect");
+        }
+
     }
 
 
