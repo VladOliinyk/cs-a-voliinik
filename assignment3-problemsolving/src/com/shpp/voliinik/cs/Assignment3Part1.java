@@ -98,6 +98,12 @@ public class Assignment3Part1 extends TextProgram {
         }
     }
 
+    /**
+     * Checking is inout is correct.
+     *
+     * @param inputString Input string.
+     * @return boolean answer.
+     */
     public boolean inputIsCorret(String inputString) {
         if (inputString.isEmpty()) {
             println("\t Please enter this:");
@@ -112,6 +118,12 @@ public class Assignment3Part1 extends TextProgram {
         return true;
     }
 
+    /**
+     * Checking is inout is correct in value.
+     *
+     * @param inputString Input string.
+     * @return boolean answer.
+     */
     public boolean userNotKidding(String inputString) {
         if (Integer.valueOf(inputString) > 1440) { // trained minutes bigger than minutes in 1 day
             println("\t Hmm.. Are you sure you training hard more than 24 hours per day?");
