@@ -1,3 +1,5 @@
+package com.shpp.voliinik.cs;
+
 import acm.graphics.*;
 import acm.util.RandomGenerator;
 import com.shpp.cs.a.graphics.WindowProgram;
@@ -110,7 +112,6 @@ public class Breakout extends WindowProgram {
      * Adding slider on the top of the screen.
      */
     public void init() {
-
         JLabel text = new JLabel("Difficulty: ");
         add(text, NORTH);
         text = new JLabel("1");
