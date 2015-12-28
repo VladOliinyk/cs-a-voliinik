@@ -29,8 +29,8 @@ public class Assignment5Part2 extends TextProgram {
         int[] numeric2 = createIntegerArray(n2, length);
 
         int[] sumUp = sumUpArrays(numeric1, numeric2);
-
         return integerToString(sumUp);
+
     }
 
     /**
@@ -41,21 +41,17 @@ public class Assignment5Part2 extends TextProgram {
      * @return A length of a larger string.
      */
     private int getMaxLength(String n1, String n2) {
-        if (n1.length() > n2.length()) {
-            return n1.length();
-        } else {
-            return n2.length();
-        }
+        return n1.length() > n2.length() ? n1.length() : n2.length();
     }
 
     /**
      * Create integer array out a string.
      * NOTE: Method write numbers one by one
-     *  started not from 0 pos in array!
-     *
-     *  It is starts from the position
-     *  from which the last character
-     *  will be in the last cell of an array.
+     * started not from 0 pos in array!
+     * <p>
+     * It is starts from the position
+     * from which the last character
+     * will be in the last cell of an array.
      *
      * @param string The string.
      * @param length The length of array we need to create.
@@ -64,8 +60,10 @@ public class Assignment5Part2 extends TextProgram {
     private int[] createIntegerArray(String string, int length) {
         int[] integerArray = new int[length];
 
+        int newLength = length - string.length();
+
         for (int i = 0; i < string.length(); i++) {
-            integerArray[length - string.length() + i] = string.charAt(i) - '0';
+            integerArray[newLength + i] = string.charAt(i) - '0';
         }
 
         return integerArray;
@@ -74,25 +72,26 @@ public class Assignment5Part2 extends TextProgram {
     /**
      * Summing up two integer arrays.
      *
-     * @param fa The first array.
-     * @param sa The second array.
+     * @param firstArray  The first array.
+     * @param secondArray The second array.
      * @return fixed array.
      */
-    private int[] sumUpArrays(int[] fa, int[] sa) {
-        int[] sum = new int[fa.length];
+    private int[] sumUpArrays(int[] firstArray, int[] secondArray) {
+        int[] sum = new int[firstArray.length];
 
-        for (int i = 0; i < fa.length; i++) {
-            sum[i] = fa[i] + sa[i];
+        for (int i = 0; i < firstArray.length; i++) {
+            sum[i] = firstArray[i] + secondArray[i];
         }
 
         return fixArray(sum);
     }
 
+
     /**
      * Fixing the array.
      * NOTE: When we summing up cells one by one
-     *  we can "overflow" the result cell.
-     *  So we need to fix those cells.
+     * we can "overflow" the result cell.
+     * So we need to fix those cells.
      *
      * @param array The array which fixing.
      * @return A fixed array.
@@ -109,16 +108,17 @@ public class Assignment5Part2 extends TextProgram {
 
     /**
      * Create string out an integer array.
+     *
      * @param intArray The integer array.
      * @return A string.
      */
     private String integerToString(int[] intArray) {
         String string = "";
         if (intArray[0] != 0) {
-            string += "" + intArray[0];
+            string += intArray[0];
         }
         for (int i = 1; i < intArray.length; i++) {
-            string += "" + intArray[i];
+            string += intArray[i];
         }
         return string;
     }

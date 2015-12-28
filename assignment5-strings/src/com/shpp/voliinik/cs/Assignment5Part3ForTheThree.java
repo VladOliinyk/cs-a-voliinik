@@ -6,9 +6,8 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
-public class Assignment5Part3 extends TextProgram {
+public class Assignment5Part3ForTheThree extends TextProgram {
 
     /**
      * Path to dictionary file.
@@ -24,16 +23,19 @@ public class Assignment5Part3 extends TextProgram {
         if (dictionary != null) {
             println("Hello dude (or lady)!\n Please enter 'exit' if you want close the game.");
 
+            boolean wantToExit = false;
             while (true) {
-                String numberPlate = getNumberPlate();
+                String numberPlate = getNumberPlate().toLowerCase();
                 if ((numberPlate.toLowerCase()).equals("exit")) {
                     break;
                 }
-                ArrayList<Character> numberPlateLetters = getLettersFromNumberPlate(numberPlate);
-
-                printArrayList(findTheWords(dictionary, numberPlateLetters), numberPlateLetters);
+                char[] numberPlateLetters = getLettersFromNumberPlate(numberPlate);
+                if (numberPlateLetters != null) {
+                    printArrayList(findTheWords(dictionary, numberPlateLetters), numberPlateLetters);
+                } else {
+                    println("Are you sure you enter right numberplate?");
+                }
             }
-            println("Thanks for \"Californication\"! Good buy! ");
         } else {
             println("! Open file error!");
         }
@@ -78,14 +80,39 @@ public class Assignment5Part3 extends TextProgram {
      * @param numberPlate The numberplate from which getting letters.
      * @return An arrayList of character.
      */
-    private ArrayList<Character> getLettersFromNumberPlate(String numberPlate) {
-        ArrayList<Character> npLetters = new ArrayList<Character>();
-        for (int i = 0; i < numberPlate.length(); i++) {
-            if (isLetter(numberPlate.charAt(i))) {
-                npLetters.add(numberPlate.charAt(i));
+    private char[] getLettersFromNumberPlate(String numberPlate) {
+        numberPlate = lettersIn(numberPlate);
+        if (numberPlate.length() != 3) {
+            return null;
+        } else {
+            char[] numberPlateLetters = new char[3];
+            for (int i = 0; i < numberPlate.length(); i++) {
+                if (isLetter(numberPlate.charAt(i))) {
+                    numberPlateLetters[i] = numberPlate.charAt(i);
+                }
+            }
+            return numberPlateLetters;
+        }
+    }
+
+    /**
+     * Given a string, returns a new string consisting of all of the
+     * letters that appear in the original string in the order in which
+     * they appear.
+     *
+     * @param text The input string.
+     * @return The letters of that string in the order in which they appear.
+     */
+    private String lettersIn(String text) {
+        String result = "";
+        for (int i = 0; i < text.length(); i++) {
+            /* Test if the current character is a letter. If so, add it. */
+            char ch = text.charAt(i);
+            if (Character.isLetter(ch)) {
+                result += ch;
             }
         }
-        return npLetters;
+        return result;
     }
 
     /**
@@ -109,53 +136,40 @@ public class Assignment5Part3 extends TextProgram {
      * @param numberPlateLetters The arrayList of letters which are looking for.
      * @return An arrayList of strings (found words).
      */
-    private ArrayList<String> findTheWords(ArrayList<String> dictionary, ArrayList<Character> numberPlateLetters) {
+    private ArrayList<String> findTheWords(ArrayList<String> dictionary, char[] numberPlateLetters) {
         ArrayList<String> resultWords = new ArrayList<String>();
 
-        String regExp = makeRegExp(numberPlateLetters);
+        for (String word : dictionary) {
+            int letterPos = 0;
 
-        for (String word : dictionary) { // по запросу 'wash' - 120 слов
-            if (Pattern.matches(regExp, word)) {
-                resultWords.add(word);
+            letterPos = word.indexOf(numberPlateLetters[0], letterPos+1);
+            if (letterPos != -1) {
+                letterPos = word.indexOf(numberPlateLetters[1], letterPos+1);
+                if (letterPos != -1) {
+                    letterPos = word.indexOf(numberPlateLetters[2], letterPos+1);
+                    if (letterPos != -1) {
+                        resultWords.add(word);
+                    }
+                }
             }
         }
 
         return resultWords;
     }
 
-    /**
-     * Make the regular expression from input letters.
-     *
-     * @param npl The input letters.
-     * @return string of the regular expression.
-     */
-    private String makeRegExp(ArrayList<Character> npl) {
-        String regExp = "^";
-
-        for (char a : npl) {
-            if (regExp.equals("^")) {
-                regExp = regExp + "([a-z]*)+(" + a + "{1})";
-            } else {
-                regExp = regExp + "+([a-z]*)+(" + a + "{1})";
-            }
-        }
-        regExp = regExp + "+([a-z]*)";
-
-        return regExp;
-    }
 
     /**
      * Print array list of found words.
      *
-     * @param wordsArray The arrayList of found words.
-     * @param npl        The letters which are looking for.
+     * @param wordsArray         The arrayList of found words.
+     * @param numberPlateLetters The array of letters from numberplate.
      */
-    private void printArrayList(ArrayList<String> wordsArray, ArrayList<Character> npl) {
+    private void printArrayList(ArrayList<String> wordsArray, char[] numberPlateLetters) {
         if (wordsArray.size() != 0) {
             int count = wordsArray.size();
             print("   Here is your " + count + " words with ");
-            for (int i = 0; i < npl.size(); i++) {
-                print(" '" + npl.get(i) + "'");
+            for (int i = 0; i < 3; i++) {
+                print(" '" + numberPlateLetters[i] + "'");
             }
             print(" letters\n");
             for (int i = 0; i < wordsArray.size(); i++) {

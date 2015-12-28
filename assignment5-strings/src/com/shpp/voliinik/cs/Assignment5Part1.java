@@ -3,6 +3,7 @@ package com.shpp.voliinik.cs;
 import com.shpp.cs.a.console.TextProgram;
 
 public class Assignment5Part1 extends TextProgram {
+
     public void run() {
         //doMyTests();
 
@@ -24,22 +25,29 @@ public class Assignment5Part1 extends TextProgram {
      */
     private int syllablesIn(String word) {
         if (word.length() > 0) {
-            word = word.toLowerCase();
+            word = prepareWord(word);
+
             int syllableCounter = 0;
 
-            if (isVowel(word.charAt(0))) {  // для первого символа
+            // for first element
+            if (isVowel(word.charAt(0))) {
                 syllableCounter++;
             }
 
-            for (int i = 1; i < word.length(); i++) {       // для всех символов кроме ПЕРВОГО
-                if (isVowel(word.charAt(i))) {                  // если текущий символ гласный
-                    if (!isVowel(word.charAt(i - 1))) {             // усли предыдущий - не гласный
-                        syllableCounter++;                              // инкремент
+            //for 1..n elements
+            for (int i = 1; i < word.length(); i++) {
+                if (isVowel(word.charAt(i))) {
+                    if (!isVowel(word.charAt(i - 1))) {
+                        syllableCounter++;
                     }
                 }
             }
 
-            if ((syllableCounter != 1)&&(word.charAt(word.length()-1) == 'e')) {
+            if ((syllableCounter != 1) &&
+                    (word.length() > 2) &&
+                    (word.charAt(word.length() - 1) == 'e') &&
+                    (!isVowel(word.charAt(word.length() - 2)))
+                    ) {
                 syllableCounter--;
             }
 
@@ -47,7 +55,40 @@ public class Assignment5Part1 extends TextProgram {
         } else { // when "word.lenght < 1"
             return 0;
         }
+
     }
+
+    /**
+     * Given a string, returns lowercase string without non letters symbols.
+     * @param word The input string.
+     * @return The string without non letters symbols.
+     */
+    private String prepareWord(String word) {
+        word = word.toLowerCase();
+        word = lettersIn(word);
+        return word;
+    }
+
+    /**
+     * Given a string, returns a new string consisting of all of the
+     * letters that appear in the original string in the order in which
+     * they appear.
+     *
+     * @param text The input string.
+     * @return The letters of that string in the order in which they appear.
+     */
+    private String lettersIn(String text) {
+        String result = "";
+        for (int i = 0; i < text.length(); i++) {
+			/* Test if the current character is a letter. If so, add it. */
+            char ch = text.charAt(i);
+            if (Character.isLetter(ch)) {
+                result += ch;
+            }
+        }
+        return result;
+    }
+
 
     /**
      * Checking if a given character a vowel.
@@ -56,15 +97,11 @@ public class Assignment5Part1 extends TextProgram {
      * @return - true or false.
      */
     private boolean isVowel(char ch) {
-        char[] vowels = new char[]{'a', 'e', 'i', 'o', 'u', 'y'};
-
-        for (char letter : vowels) {
-            if (ch == letter) {
-                return true;
-            }
-        }
-        return false;
+        String vowels = "aeiouy";
+        String myChar = "" + ch;
+        return (vowels.contains(myChar));
     }
+
 
     /**
      * Making some tests of algorithm.
@@ -75,6 +112,8 @@ public class Assignment5Part1 extends TextProgram {
         // tests for ш++ algorithm
         myTest("Me", 1);
         myTest("The", 1);
+        myTest("Tea", 1);
+        myTest("Tae", 1);
         myTest("She", 1);
         myTest("Nimble", 1);
         myTest("Growth", 1);
@@ -83,8 +122,8 @@ public class Assignment5Part1 extends TextProgram {
         myTest("Syllable", 2);
         myTest("Springbok", 2);
         myTest("Unity", 3);
-        myTest("Manatee", 2);
-        myTest("Manatae", 2);
+        myTest("Manatee", 3);
+        myTest("Manatae", 3);
         myTest("Manatea", 3);
         myTest("Beautiful", 3);
         myTest("Possibilities", 5);
@@ -98,8 +137,8 @@ public class Assignment5Part1 extends TextProgram {
         myTest("eee", 1);
         myTest("aaaeee", 1);
         myTest("base", 1);
-        myTest("singlee", 1);
-        myTest("Wallee", 1);
+        myTest("singlee", 2);
+        myTest("Wallee", 2);
         myTest("Walle-E", 2);
         myTest("", 0);
         myTest(" ", 0);
@@ -117,12 +156,8 @@ public class Assignment5Part1 extends TextProgram {
      * @param i    - number of syllables.
      */
     private void myTest(String word, int i) {
-        if (!(syllablesIn(word) == i)) {
-            print("! ");
-        } else {
-            print("  ");
-        }
-        println((syllablesIn(word) == i) + " "+syllablesIn(word) + " : [ " + word + " ]");
+        print(!(syllablesIn(word) == i) ? "! " : "  ");
+        println((syllablesIn(word) == i) + " " + syllablesIn(word) + " : [ " + word + " ]");
     }
 }
 

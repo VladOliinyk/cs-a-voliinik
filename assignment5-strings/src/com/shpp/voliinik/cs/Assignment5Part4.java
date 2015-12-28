@@ -12,7 +12,7 @@ public class Assignment5Part4 extends TextProgram {
     /**
      * Path to dictionary file.
      */
-    private static final String FILENAME = "filename.csv";
+    private static final String FILENAME = "filename2.csv";
 
     /**
      * Calling extractColumn method.
@@ -23,14 +23,18 @@ public class Assignment5Part4 extends TextProgram {
 
     private void extractColumn(String filename, int columnIndex) {
         ArrayList<String> fileStrings = readFile(filename);
-        ArrayList<ArrayList> tableRows = new ArrayList<ArrayList>();
+        if (fileStrings != null) {
+            ArrayList<ArrayList> tableRows = new ArrayList<ArrayList>();
 
-        for (String string : fileStrings) {
-            ArrayList<String> tableCell = getCellsFromString(string);
-            tableRows.add(tableCell);
+            for (String string : fileStrings) {
+                ArrayList<String> tableCell = getCellsFromString(string);
+                tableRows.add(tableCell);
+            }
+
+            printResult(tableRows, columnIndex);
+        } else {
+            println("! Open file error!");
         }
-
-        printResult(tableRows, columnIndex);
     }
 
 
@@ -53,6 +57,7 @@ public class Assignment5Part4 extends TextProgram {
             file.close();
         } catch (IOException e) {
             println("! Something wrong :c ");
+            return null;
         }
         return result;
     }
@@ -68,6 +73,7 @@ public class Assignment5Part4 extends TextProgram {
 
         String newCell = "";
         char breakChar = ',';
+
         for (int i = 0; i < string.length(); i++) {
             char ch = string.charAt(i);
 
@@ -101,9 +107,9 @@ public class Assignment5Part4 extends TextProgram {
         for (int i = 0; i < tableRows.size(); i++) {
             ArrayList<String> row = tableRows.get(i);
             if (row.get(columnIndex).charAt(0) != '"') {
-                print('"');
+                print("{\"");
                 print(row.get(columnIndex));
-                print('"');
+                print("\"}");
             } else {
                 print(row.get(columnIndex));
             }

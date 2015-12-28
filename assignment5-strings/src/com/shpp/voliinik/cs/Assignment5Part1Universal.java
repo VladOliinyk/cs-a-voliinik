@@ -1,7 +1,7 @@
 package com.shpp.voliinik.cs;
 
 import com.shpp.cs.a.console.TextProgram;
-
+// OUT OF DATE
 public class Assignment5Part1Universal extends TextProgram {
     public void run() {
         doMyTests();
